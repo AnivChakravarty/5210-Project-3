@@ -13,6 +13,7 @@ import numpy as np
 import random
 '''Initializing window'''
 pygame.init()
+#window dimensions
 WIDTH, HEIGHT = 600, 600
 COLOR=(220,220,220)
 BLACK=(0,0,0)
@@ -40,7 +41,7 @@ game_start=False
 board=np.zeros((ROWS,COLUMNS))
 #print(board)
 def text():
-    font = pygame.font.Font('freesansbold.ttf', 15)
+    font = pygame.font.Font('freesansbold.ttf', 10)
     if player==1:
         t = ' Player Max\'s turn '
     elif player==2:
@@ -59,10 +60,14 @@ def text():
     textbox4 = text4.get_rect()
     textbox5 = text5.get_rect()
     textbox6 = text6.get_rect()
+    #bottom turn text
     textbox1.center = (300, 420)
+    #players top left
     textbox2.center = (158, 20)
     textbox3.center = (156, 40)
+    #bottom text
     textbox4.center = (300, 450)
+    #alpha-beta text
     textbox5.center = (500,20)
     textbox6.center = (500,40)
     window.blit(text1, textbox1)
@@ -89,24 +94,29 @@ def full():
                 return False
     return True
 #alpha beta pruning decision
-#get this working using minimax
+#working, now to add depth cutoff
 def AlphaBeta_Search(board):
     alpha=-1000
     beta=1000
     best=alpha
+    depth=0
+    cutoff=0
+    actions=[]
+    #for cutoff in range(9):
     for row in range(ROWS):
         for col in range(COLUMNS):
             if free(row,col):
                 board[row][col]=1
-                score = ab(board, 0, False, alpha, beta)
-                print('alpha:{}, beta:{}'.format(alpha,beta))
+                score = ab(board, depth+1, False, alpha, beta, cutoff)
+                print('x:{}, y:{}, s:{}, alpha:{}, beta:{}'.format(row, col, score, alpha, beta))
                 board[row][col]=0
                 if score>best:
                     best = score
+                    alpha_beta[0]=best
                     move = (row,col)
     return move[0],move[1]
 
-def ab(board, depth, isMax, alpha, beta):
+def ab(board, depth, isMax, alpha, beta, cutoff):
     if goal(1):
         return 1
     elif goal(2):
@@ -119,14 +129,15 @@ def ab(board, depth, isMax, alpha, beta):
             for col in range(COLUMNS):
                 if free(row,col):
                     board[row][col]=1
-                    score = ab(board, depth+1, False, alpha, beta)
-                    print('alpha:{}, beta:{}'.format(alpha, beta))
+                    score = ab(board, depth+1, False, alpha, beta, cutoff)
+                    print('x2:{}, y2:{}, s:{}, alpha:{}, beta:{}'.format(row, col, score, alpha_beta[0], alpha_beta[1]))
                     board[row][col]=0
-                    best=max(score,best)
-                    alpha=best
-                    alpha_beta[0]=alpha
+                    if score > best:
+                        best=score
+                        alpha=best
+                        alpha_beta[0]=best
                     if best >= beta:
-                        return best
+                        break
         return best
     else:
         best = beta
@@ -134,14 +145,15 @@ def ab(board, depth, isMax, alpha, beta):
             for col in range(COLUMNS):
                 if free(row,col):
                     board[row][col]=2
-                    score = ab(board, depth+1, True, alpha, beta)
-                    print('alpha:{}, beta:{}'.format(alpha, beta))
+                    score = ab(board, depth+1, True, alpha, beta, cutoff)
+                    print('x1:{}, y1:{}, s:{}, alpha:{}, beta:{}'.format(row, col, score, alpha_beta[0], alpha_beta[1]))
                     board[row][col]=0
-                    best=min(score,best)
-                    beta=best
-                    alpha_beta[1]=beta
+                    if score < best:
+                        best=score
+                        beta=best
+                        alpha_beta[1]=best
                     if best <= alpha:
-                        return best
+                        break
         return best
 
 '''def AlphaBeta_Search(board):
