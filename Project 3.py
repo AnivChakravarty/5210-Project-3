@@ -41,7 +41,7 @@ game_start=False
 board=np.zeros((ROWS,COLUMNS))
 #print(board)
 def text():
-    font = pygame.font.Font('freesansbold.ttf', 15)
+    font = pygame.font.Font('freesansbold.ttf', 10)
     if player==1:
         t = ' Player Max\'s turn '
     elif player==2:
