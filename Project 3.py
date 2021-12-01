@@ -5,7 +5,6 @@ https://www.youtube.com/watch?v=pc7XhHxSgrM&ab_channel=CodingSpot
 https://www.youtube.com/watch?v=fT3YWCKvuQE&ab_channel=KylieYing
 https://www.youtube.com/watch?v=trKjYdBASyQ&ab_channel=TheCodingTrain
 '''
-
 '''imports'''
 import pygame,sys
 import numpy as np
@@ -102,7 +101,7 @@ def AlphaBeta_Search(board):
     c=0
     original_stdout=sys.stdout
     '''write to log file'''
-    with open('logPruning2.txt', 'a') as f:
+    with open('logPruning.txt', 'a') as f:
         sys.stdout=f
         begin=timeit.timeit()
         for row in range(ROWS):
@@ -185,7 +184,7 @@ def Minimax_Search(board):
     c=0
     '''write to log file'''
     original_stdout=sys.stdout
-    with open('logMinimax2.txt', 'a') as f:
+    with open('logMinimax.txt', 'a') as f:
         sys.stdout=f
         best=-2
         begin=timeit.timeit()
