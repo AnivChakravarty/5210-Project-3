@@ -1,0 +1,15 @@
+total nodes:65779
+total method time:0.0001049000000001854
+number of prunes:46416
+total nodes:68551
+total method time:7.439999999991898e-05
+number of prunes:48364
+total nodes:68641
+total method time:0.000641899999999751
+number of prunes:48413
+total nodes:68654
+total method time:0.0005548999999991366
+number of prunes:48420
+total nodes:68655
+total method time:0.001161399999999091
+number of prunes:48420

@@ -1,0 +1,10 @@
+total nodes:549945
+total method time:0.0013172999999997437
+total nodes:557276
+total method time:0.0029933999999971483
+total nodes:557473
+total method time:0.0022431999999983354
+total nodes:557486
+total method time:0.0021276999999986224
+total nodes:557487
+total method time:0.002342600000001749
